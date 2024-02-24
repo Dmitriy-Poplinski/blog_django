@@ -11,10 +11,10 @@ def post_list(request):
         {"posts": posts})
 
 
-def post_detail(request, post_id):
+def post_detail(request, id):
     post=get_object_or_404(
         Post,
-        id=post_id,
+        id=id,
         status=Post.Status.PUBLISHED
     )
 
