@@ -5,10 +5,7 @@ from django.contrib.auth import get_user_model
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return (super()
-                .get_queryset()
-                .filter(status=Post.Status.PUBLISHED)
-                )
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
 
 
 class Post(models.Model):
@@ -19,18 +16,14 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
     author = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.CASCADE,
-        related_name="posts"
+        get_user_model(), on_delete=models.CASCADE, related_name="posts"
     )
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(
-        max_length=2,
-        choices=Status.choices,
-        default=Status.DRAFT
+        max_length=2, choices=Status.choices, default=Status.DRAFT
     )
 
     objects = models.Manager()
@@ -38,9 +31,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-publish"]
-        indexes = [
-            models.Index(fields=["-publish"])
-        ]
+        indexes = [models.Index(fields=["-publish"])]
 
     def __str__(self) -> str:
         return f"{self.title}"
