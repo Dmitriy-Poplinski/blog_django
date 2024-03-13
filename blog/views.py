@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 
 from .models import Post, Comment
-from .forms import EmailPostForm
+from .forms import EmailPostForm, CommentForm
 
 
 class PostListView(ListView):
